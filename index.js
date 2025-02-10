@@ -12,6 +12,11 @@ app.use(express.json())
 
 app.use('/api/subject',subjectRouter)
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MONGODB CONNECTD"))
