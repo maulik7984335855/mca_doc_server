@@ -57,27 +57,21 @@ export const updateMaterial = async (req, res) => {
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
-
-    // Validate file upload
-    if (!req.file || !req.file.path) {
-      return res
-        .status(400)
-        .json({ message: "Material not found", success: false });
+    let subject = await Subject.findById(id);
+    if (!subject) {
+      return res.json({ message: "Subject Not Found", success: false });
     }
-    let subject = await Subject.findByIdAndUpdate(
-      { _id: id },
-      {
-        subjectMaterial: req.file.path, // Cloudinary file URL
-        subjectName,
-        description,
-      },
-      { new: true }
-    );
+    const updateData = {
+      subjectName,
+      description,
+      subjectMaterial: req.file ? req.file.path : subject.subjectMaterial,
+    };
+    subject = await Subject.findByIdAndUpdate(id, updateData, { new: true });
     if (!subject) {
       return res.json({ message: "Update Failed", success: false });
     }
     res.json({
-      message: "Update Materail Successfully",
+      message: "Update Material Successfully",
       success: true,
       subject,
     });

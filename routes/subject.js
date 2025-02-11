@@ -8,6 +8,6 @@ router.post('/add',upload.single('subjectMaterial'),addMaterial)
 
 router.get('/get',getAllMaterial)
 
-router.put('/update/:id',updateMaterial)
+router.put('/update/:id',upload.single('subjectMaterial'),updateMaterial)
 
 export default router;
