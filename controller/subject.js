@@ -79,3 +79,18 @@ export const updateMaterial = async (req, res) => {
     res.json({ message: error.message });
   }
 };
+
+//delete subject material
+export const deleteMaterial = async(req,res) =>{
+  try {
+    const id = req.params.id;
+    let subject = await Subject.findByIdAndDelete(id)
+    if(!subject)
+    {
+      return res.json({message:"Delete operation failed",success:false})
+    }
+    res.json({message:"Delete Operation SuccessFully",success:true})
+  } catch (error) {
+    res.json({message:error.message})
+  }
+}

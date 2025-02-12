@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import subjectRouter from './routes/subject.js'
 import userRouter from './routes/user.js'
+import adminRouter from './routes/admin.js'
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(express.json())
 
 app.use('/api/subject',subjectRouter)
 app.use('/api/user',userRouter)
+app.use('/api/admin',adminRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
